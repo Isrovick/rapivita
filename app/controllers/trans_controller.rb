@@ -9,7 +9,7 @@ class TransController < ApplicationController
         url = 'https://api.coindesk.com/v1/bpi/currentprice.json' 
         @response = RestClient.get(url)
         res=ActiveSupport::JSON.decode(@response)
-        render json: res['bpi']['USD']['rate']
+        render json: ActiveSupport::JSON.encode(res['bpi']['USD']['rate'])
          
 
     end 

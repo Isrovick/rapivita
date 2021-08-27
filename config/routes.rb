@@ -6,11 +6,14 @@ Rails.application.routes.draw do
 
     resources :sessions, only: [:create]
     post 'login', to: 'sessions#create', as: 'login'
-    resources :registrations, only: [:create]
-    post 'signup', to: 'registrations#create', as: 'signup'
     delete :logout, to: "sessions#logout"
     get :logged_in, to: "sessions#logged_in"
-    resources :trans
+
+    resources :registrations, only: [:create]
+    post 'signup', to: 'registrations#create', as: 'signup'
+
+    resources :trans, only: [:create]
+    get :getconv, to: 'trans#getconv'
 
 end
 
