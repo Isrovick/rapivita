@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  curto: one
+  curfr: one
+  rel: 1.5
+
+two:
+  curto: two
+  curfr: two
+  rel: 1.5

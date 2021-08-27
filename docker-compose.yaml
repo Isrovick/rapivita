@@ -1,0 +1,58 @@
+version: '3.6'
+
+services:
+ app:
+  image: node:12-alpine
+  container_name: noder
+  command: sh -c "cd /app/front && npm start"
+  volumes:
+   - ../reactfr:/app
+  working_dir: /app
+  ports:
+   - 4000:3000
+   - 19000:19000
+   - 19002:19002
+   - 19006:19006
+  labels:
+   - desktop.docker.io/ports/19000/tcp:192.168.0.50:19000
+   - desktop.docker.io/ports/19002/tcp:192.168.0.50:19002
+   - desktop.docker.io/ports/19006/tcp:192.168.0.50:19006
+  tty: true
+
+ db:
+  image: postgres
+  container_name: pgr
+  restart: always
+  volumes:
+   - ./tmp/db:/var/lib/postgresql/data
+  ports:
+   - "5432:5432"
+  environment:
+   POSTGRES_PASSWORD: password
+ web:
+  build: .
+  container_name: rapi
+  command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+  volumes:
+   - .:/myapp
+  ports:
+   - "3000:3000"
+  depends_on:
+   - db
+
+ dbgui:
+  image: dpage/pgadmin4
+  container_name: dbguir
+  restart: always
+  environment:
+   - PGADMIN_DEFAULT_EMAIL=isrovick@gmail.com
+   - PGADMIN_DEFAULT_PASSWORD=password
+  #volumes:
+  # - ./tmp/gui:/var/lib/postgresql/data
+  ports:
+   - "8000:80"
+   - "44300:443"
+  tty: true
+  depends_on:
+   - db
+  
