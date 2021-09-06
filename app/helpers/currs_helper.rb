@@ -1,0 +1,2 @@
+module CurrsHelper
+end

@@ -7,13 +7,20 @@ Rails.application.routes.draw do
     resources :sessions, only: [:create]
     post 'login', to: 'sessions#create', as: 'login'
     delete :logout, to: "sessions#logout"
-    get :logged_in, to: "sessions#logged_in"
+    post :logged_in, to: "sessions#logged_in"
 
     resources :registrations, only: [:create]
     post 'signup', to: 'registrations#create', as: 'signup'
+    
+    resources :balances
+    post 'available', to: 'balances#getuserbals', as: 'available'
 
     resources :trans, only: [:create]
-    get :getconv, to: 'trans#getconv'
+    get 'getrelresp', to: 'trans#getrelresp'
+    post 'trade', to: 'trans#create', as: "trade"
+    post 'rel', to: 'trans#getconvresp', as: "rel"
+    post 'itran', to: 'trans#gettrans', as: "itran"
+    post 'itrans', to: 'trans#getalltrans', as: "itrans"
 
 end
 

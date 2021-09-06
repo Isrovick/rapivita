@@ -3,12 +3,15 @@ class RegistrationsController < ApplicationController
     def create
         user = User.new(user_params)
         if user.save
-         
-        session[:user_id] = user.id
-        render json: { 
-            status: :created,
-            user: user
-        }
+            token = AuthenticationTokenService::encode_user(user.id)
+           
+            render json: { 
+                tkn: token,
+                name: "#{@user.firstname}, #{@user.lastname}",
+                logged_in: true,
+                status: :created,
+                user: user
+            }
         else
             render json: {  status: 500 }
         end

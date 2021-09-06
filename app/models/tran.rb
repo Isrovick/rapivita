@@ -1,5 +1,5 @@
 class Tran < ApplicationRecord
-  belongs_to :usrto
-  belongs_to :userfr
-  belongs_to :conv
+  belongs_to :usrto,   :class_name => 'User'
+  belongs_to :usrfr,  :class_name => 'User'
+  belongs_to :conv,    :class_name => 'Conv'
 end

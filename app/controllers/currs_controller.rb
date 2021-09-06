@@ -1,0 +1,3 @@
+class CurrsController < ApplicationController
+
+end

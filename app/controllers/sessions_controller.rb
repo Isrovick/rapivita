@@ -1,37 +1,38 @@
 class SessionsController < ApplicationController
-    include CurrentUserConcern
 
     def create
-        user = User
+        @user = User
                 .find_by_email(user_params[:email])
                 .try(:authenticate, user_params[:password])
-        if user
-            session[:user_id] = user.id
+        if @user
+            token = AuthenticationTokenService.encode_token(@user.id)
             render json: { 
-                    status: :created,
+                    tkn: token,
+                    name: "#{@user.firstname}, #{@user.lastname}",
                     logged_in: true,
-                    user: user
-            }
+                    user: @user
+            },  status: :created
         else 
-            render json: { status: 401 }
+            render json: {  }, status: 401
         end
       end
 
       def logged_in
-        if @current_user
+        
+        if @user
+            token = AuthenticationTokenService.encode_token(@user.id)
             render json: { 
+                tkn: token,
                 logged_in: true,
-                user: @current_user
-            }
+            },  status: :created
         else
             render json: { 
                 logged_in: false
-            }
+            }, status: 401
         end
       end
 
       def logout
-            reset_session
             render json: { 
                 logged_out: true,
                 status: 200
