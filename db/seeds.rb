@@ -6,51 +6,37 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# Curr.create({
-#     cod:"BTC",
-#     desc:"Bitcoin",
-#     typ:"1"
-# })
-# Curr.create({
-#     cod:"USD",
-#     desc:"American Dollar",
-#     typ:"0"
-# })
-# Curr.create({
-#     cod:"COP",
-#     desc:"Colombian Peso",
-#     typ:"0"
-# })
-# Curr.create({
-#     cod:"CLP",
-#     desc:"Chileian peso",
-#     typ:"0"
-# })
+User.create({
+    email: "q@q.q",
+    password:"test", 
+    password_confirmation:"test", 
+    firstname:"newbie", 
+    lastname:"junior"
+})
 
-# Balance.create({
-#     curr: Curr.find(1),
-#     bal:"0.1",
-#     user:User.find(1),
 
-# })
+Curr.create({
+    cod:"BTC",
+    desc:"Bitcoin",
+    typ:"1"
+})
+Curr.create({
+    cod:"USD",
+    desc:"American Dollar",
+    typ:"0"
+})
 
-# Balance.create({
-#     curr:Curr.find(2),
-#     bal:1000,
-#     user:User.find(1),
+Balance.create({
+    curr: Curr.find(1),
+    bal:"0.1",
+    user:User.find(1),
 
-# })
+})
 
-# Balance.create({
-#     curr: Curr.find(4),
-#     bal:"4000000",
-#     user:User.find(1),
+Balance.create({
+    curr:Curr.find(2),
+    bal:1000,
+    user:User.find(1),
 
-# })
+})
 
-# Balance.create({
-#     curr:Curr.find(3),
-#     bal:1000,
-#     user:User.find(1),
-
-# })
